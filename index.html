@@ -4,9 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>InstantQuote — Cleaning Quotes Made Simple</title>
+  <title>InstantQuote — Cleaning Business Software</title>
 
   <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --text: #172033;
+      --muted: #667085;
+      --border: #e6eaf0;
+      --background: #f7f9fc;
+      --white: #ffffff;
+      --success: #16a34a;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -14,88 +25,162 @@
     }
 
     body {
-      font-family: Arial, sans-serif;
-      background: #f6f8fb;
-      color: #172033;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.5;
     }
 
+    /* HEADER */
+
     header {
-      background: white;
-      border-bottom: 1px solid #e5e9ef;
-      padding: 18px 6%;
+      height: 72px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      padding: 0 6%;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
     .logo {
-      font-size: 23px;
+      font-size: 22px;
       font-weight: 800;
+      letter-spacing: -0.5px;
     }
 
     .logo span {
-      color: #2563eb;
+      color: var(--primary);
     }
 
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .status-pill {
+      background: #ecfdf3;
+      color: #15803d;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* HERO */
+
     .hero {
+      max-width: 1050px;
+      margin: auto;
+      padding: 60px 20px 35px;
       text-align: center;
-      padding: 55px 20px 35px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #eff6ff;
+      color: var(--primary);
+      padding: 7px 13px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 18px;
     }
 
     .hero h1 {
-      font-size: 42px;
-      line-height: 1.1;
-      margin-bottom: 15px;
+      font-size: 48px;
+      line-height: 1.08;
+      letter-spacing: -1.5px;
+      margin-bottom: 18px;
     }
 
     .hero h1 span {
-      color: #2563eb;
+      color: var(--primary);
     }
 
     .hero p {
-      max-width: 600px;
+      max-width: 650px;
       margin: auto;
-      color: #667085;
-      font-size: 17px;
-      line-height: 1.6;
+      color: var(--muted);
+      font-size: 18px;
     }
 
-    .container {
-      max-width: 850px;
-      margin: 25px auto 70px;
-      padding: 0 20px;
+    /* MAIN */
+
+    .main {
+      max-width: 1050px;
+      margin: auto;
+      padding: 10px 20px 70px;
     }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 22px;
+    }
+
+    /* CARDS */
 
     .card {
-      background: white;
-      border: 1px solid #e3e8ef;
-      border-radius: 18px;
-      padding: 28px;
-      box-shadow: 0 12px 35px rgba(0,0,0,0.06);
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 10px 35px rgba(16, 24, 40, 0.06);
     }
 
-    .card h2 {
-      margin-bottom: 22px;
+    .card-header {
+      padding: 25px 25px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-header h2 {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    .card-header p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .card-body {
+      padding: 25px;
+    }
+
+    /* FORM */
+
+    .field {
+      margin-bottom: 20px;
     }
 
     label {
       display: block;
+      font-size: 14px;
       font-weight: 700;
       margin-bottom: 8px;
-    }
-
-    .field {
-      margin-bottom: 18px;
     }
 
     input,
     select {
       width: 100%;
-      padding: 13px;
-      border: 1px solid #d5dbe5;
-      border-radius: 10px;
-      font-size: 16px;
+      padding: 14px 15px;
+      border: 1px solid #d6dce5;
+      border-radius: 11px;
+      font-size: 15px;
       background: white;
+      color: var(--text);
+      outline: none;
+      transition: 0.2s;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
     }
 
     .grid {
@@ -104,192 +189,651 @@
       gap: 15px;
     }
 
-    .price-box {
-      background: #f1f5ff;
-      border-radius: 14px;
-      padding: 22px;
-      margin-top: 22px;
+    /* ADDONS */
+
+    .addons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .addon {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px;
+      font-size: 13px;
+      cursor: pointer;
+      background: #fafbfc;
+      transition: 0.2s;
+    }
+
+    .addon:hover {
+      border-color: #b8c5d8;
+    }
+
+    .addon input {
+      width: auto;
+      margin-right: 7px;
+      vertical-align: middle;
+    }
+
+    /* PRICE */
+
+    .price-card {
+      position: sticky;
+      top: 95px;
+      height: fit-content;
+      overflow: hidden;
+    }
+
+    .price-top {
+      padding: 27px;
+      background: #f0f6ff;
       text-align: center;
     }
 
     .price-label {
-      color: #667085;
-      margin-bottom: 5px;
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 4px;
     }
 
     .price {
-      font-size: 40px;
+      font-size: 52px;
       font-weight: 800;
-      color: #2563eb;
+      color: var(--primary);
+      letter-spacing: -2px;
     }
+
+    .estimate {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .price-body {
+      padding: 22px;
+    }
+
+    .breakdown {
+      margin-bottom: 18px;
+    }
+
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      font-size: 14px;
+      border-bottom: 1px solid #f0f2f5;
+    }
+
+    .breakdown-row:last-child {
+      border-bottom: none;
+    }
+
+    .breakdown-row span:last-child {
+      font-weight: 700;
+    }
+
+    /* BUTTONS */
 
     button {
       width: 100%;
-      margin-top: 20px;
       padding: 15px;
       border: none;
       border-radius: 11px;
-      background: #2563eb;
+      background: var(--primary);
       color: white;
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 700;
       cursor: pointer;
+      transition: 0.2s;
     }
 
     button:hover {
-      opacity: 0.9;
+      background: var(--primary-dark);
+      transform: translateY(-1px);
     }
+
+    .secondary-btn {
+      background: #eef2f7;
+      color: var(--text);
+      margin-top: 10px;
+    }
+
+    .secondary-btn:hover {
+      background: #e2e7ef;
+    }
+
+    /* RESULT */
 
     .result {
       display: none;
-      margin-top: 25px;
-      padding: 22px;
-      border: 1px solid #dce3ed;
-      border-radius: 14px;
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 12px;
+      background: #ecfdf3;
+      border: 1px solid #bbf7d0;
     }
 
-    .result h3 {
-      margin-bottom: 12px;
+    .result-title {
+      color: #15803d;
+      font-weight: 800;
+      margin-bottom: 5px;
     }
+
+    .result-text {
+      font-size: 13px;
+      color: #166534;
+    }
+
+    /* FEATURES */
+
+    .features {
+      max-width: 1050px;
+      margin: 0 auto 70px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 23px;
+    }
+
+    .feature-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: #eff6ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+
+    .feature h3 {
+      margin-bottom: 7px;
+      font-size: 16px;
+    }
+
+    .feature p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* FOOTER */
 
     footer {
-      text-align: center;
-      padding: 30px;
       background: white;
-      border-top: 1px solid #e5e9ef;
-      color: #667085;
+      border-top: 1px solid var(--border);
+      padding: 28px 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
     }
 
-    @media (max-width: 650px) {
-      .hero h1 {
-        font-size: 34px;
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+
+      header {
+        padding: 0 18px;
       }
+
+      .status-pill {
+        display: none;
+      }
+
+      .hero {
+        padding: 45px 18px 25px;
+      }
+
+      .hero h1 {
+        font-size: 35px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+
+      .price-card {
+        position: static;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 500px) {
 
       .grid {
         grid-template-columns: 1fr;
       }
+
+      .addons {
+        grid-template-columns: 1fr;
+      }
+
+      .card-body,
+      .card-header {
+        padding: 20px;
+      }
+
+      .price {
+        font-size: 45px;
+      }
     }
+
   </style>
 </head>
 
 <body>
 
 <header>
+
   <div class="logo">
     Instant<span>Quote</span>
   </div>
+
+  <div class="header-right">
+    <div class="status-pill">
+      ● Free Beta
+    </div>
+  </div>
+
 </header>
+
 
 <section class="hero">
 
+  <div class="badge">
+    Built for cleaning businesses
+  </div>
+
   <h1>
-    Create a cleaning quote
+    Create professional cleaning quotes
     <span>in minutes.</span>
   </h1>
 
   <p>
-    Quickly estimate your cleaning price and create a professional quote
-    for your customer.
+    Calculate your price, create a professional quote,
+    and prepare it for your customer — without complicated software.
   </p>
 
 </section>
 
-<div class="container">
 
-  <div class="card">
+<main class="main">
 
-    <h2>Create New Quote</h2>
+  <div class="workspace">
 
-    <div class="field">
-      <label>Customer Name</label>
-      <input
-        id="customer"
-        type="text"
-        placeholder="e.g. Sarah Johnson"
-      >
+
+    <!-- QUOTE FORM -->
+
+    <div class="card">
+
+      <div class="card-header">
+
+        <h2>Create a new quote</h2>
+
+        <p>
+          Enter the customer's details and job information.
+        </p>
+
+      </div>
+
+
+      <div class="card-body">
+
+
+        <div class="field">
+
+          <label>
+            Customer name
+          </label>
+
+          <input
+            id="customer"
+            type="text"
+            placeholder="e.g. Sarah Johnson"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Property type
+          </label>
+
+          <select id="property">
+
+            <option value="house">
+              House
+            </option>
+
+            <option value="apartment">
+              Apartment
+            </option>
+
+            <option value="office">
+              Office
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="grid">
+
+          <div class="field">
+
+            <label>
+              Bedrooms
+            </label>
+
+            <input
+              id="bedrooms"
+              type="number"
+              min="0"
+              value="3"
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label>
+              Bathrooms
+            </label>
+
+            <input
+              id="bathrooms"
+              type="number"
+              min="0"
+              value="2"
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Cleaning service
+          </label>
+
+          <select id="cleaning">
+
+            <option value="standard">
+              Standard Cleaning
+            </option>
+
+            <option value="deep">
+              Deep Cleaning
+            </option>
+
+            <option value="move">
+              Move In / Move Out
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Add-ons
+          </label>
+
+          <div class="addons">
+
+            <label class="addon">
+              <input
+                type="checkbox"
+                value="25"
+                class="addon-check"
+              >
+              Inside oven — $25
+            </label>
+
+            <label class="addon">
+              <input
+                type="checkbox"
+                value="25"
+                class="addon-check"
+              >
+              Inside fridge — $25
+            </label>
+
+            <label class="addon">
+              <input
+                type="checkbox"
+                value="35"
+                class="addon-check"
+              >
+              Interior windows — $35
+            </label>
+
+            <label class="addon">
+              <input
+                type="checkbox"
+                value="30"
+                class="addon-check"
+              >
+              Cabinets — $30
+            </label>
+
+          </div>
+
+        </div>
+
+
+        <button onclick="calculateQuote()">
+          Calculate Quote
+        </button>
+
+
+        <div class="result" id="result">
+
+          <div class="result-title">
+            ✓ Quote calculated
+          </div>
+
+          <div
+            class="result-text"
+            id="resultText"
+          ></div>
+
+        </div>
+
+      </div>
+
     </div>
 
-    <div class="grid">
 
-      <div class="field">
-        <label>Bedrooms</label>
-        <input
-          id="bedrooms"
-          type="number"
-          min="0"
-          value="3"
+    <!-- PRICE CARD -->
+
+    <div class="card price-card">
+
+      <div class="price-top">
+
+        <div class="price-label">
+          Estimated customer price
+        </div>
+
+        <div
+          class="price"
+          id="price"
         >
+          $0
+        </div>
+
+        <div class="estimate">
+          Estimate only
+        </div>
+
       </div>
 
-      <div class="field">
-        <label>Bathrooms</label>
-        <input
-          id="bathrooms"
-          type="number"
-          min="0"
-          value="2"
+
+      <div class="price-body">
+
+        <div class="breakdown">
+
+          <div class="breakdown-row">
+
+            <span>
+              Base service
+            </span>
+
+            <span id="basePrice">
+              $0
+            </span>
+
+          </div>
+
+
+          <div class="breakdown-row">
+
+            <span>
+              Bedrooms
+            </span>
+
+            <span id="bedroomPrice">
+              $0
+            </span>
+
+          </div>
+
+
+          <div class="breakdown-row">
+
+            <span>
+              Bathrooms
+            </span>
+
+            <span id="bathroomPrice">
+              $0
+            </span>
+
+          </div>
+
+
+          <div class="breakdown-row">
+
+            <span>
+              Add-ons
+            </span>
+
+            <span id="addonPrice">
+              $0
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <button onclick="createQuote()">
+          Create Professional Quote
+        </button>
+
+        <button
+          class="secondary-btn"
+          onclick="resetQuote()"
         >
+          Start Over
+        </button>
+
       </div>
-
-    </div>
-
-    <div class="field">
-
-      <label>Cleaning Type</label>
-
-      <select id="cleaning">
-
-        <option value="standard">
-          Standard Cleaning
-        </option>
-
-        <option value="deep">
-          Deep Cleaning
-        </option>
-
-        <option value="move">
-          Move In / Move Out
-        </option>
-
-      </select>
-
-    </div>
-
-    <div class="price-box">
-
-      <div class="price-label">
-        Estimated Quote
-      </div>
-
-      <div class="price" id="price">
-        $0
-      </div>
-
-    </div>
-
-    <button onclick="calculateQuote()">
-      Calculate Quote
-    </button>
-
-    <div class="result" id="result">
-
-      <h3>Quote Ready</h3>
-
-      <p id="summary"></p>
-
-      <button onclick="sendQuote()">
-        Create Professional Quote
-      </button>
 
     </div>
 
   </div>
 
-</div>
+</main>
+
+
+<section class="features">
+
+
+  <div class="feature">
+
+    <div class="feature-icon">
+      ⚡
+    </div>
+
+    <h3>
+      Fast quoting
+    </h3>
+
+    <p>
+      Calculate a cleaning estimate without complicated spreadsheets.
+    </p>
+
+  </div>
+
+
+  <div class="feature">
+
+    <div class="feature-icon">
+      💼
+    </div>
+
+    <h3>
+      Professional
+    </h3>
+
+    <p>
+      Turn your estimate into a clean customer-facing quote.
+    </p>
+
+  </div>
+
+
+  <div class="feature">
+
+    <div class="feature-icon">
+      📱
+    </div>
+
+    <h3>
+      Works on mobile
+    </h3>
+
+    <p>
+      Create quotes from your phone while you're on the go.
+    </p>
+
+  </div>
+
+
+</section>
+
 
 <footer>
-  © 2026 InstantQuote
+
+  InstantQuote © 2026 · Simple software for modern cleaning businesses
+
 </footer>
+
 
 <script>
 
@@ -304,42 +848,142 @@ function calculateQuote() {
   const cleaning =
     document.getElementById("cleaning").value;
 
-  let price = 50;
 
-  price += bedrooms * 25;
+  let base = 50;
 
-  price += bathrooms * 30;
 
   if (cleaning === "deep") {
-    price += 75;
+    base = 100;
   }
 
   if (cleaning === "move") {
-    price += 100;
+    base = 125;
   }
 
-  document.getElementById("price").textContent =
-    "$" + price;
+
+  const bedroomCost =
+    bedrooms * 25;
+
+  const bathroomCost =
+    bathrooms * 30;
+
+
+  let addons = 0;
+
+  document
+    .querySelectorAll(".addon-check:checked")
+    .forEach(function(item) {
+
+      addons += Number(item.value);
+
+    });
+
+
+  const total =
+    base +
+    bedroomCost +
+    bathroomCost +
+    addons;
+
+
+  document.getElementById("basePrice")
+    .textContent = "$" + base;
+
+  document.getElementById("bedroomPrice")
+    .textContent = "$" + bedroomCost;
+
+  document.getElementById("bathroomPrice")
+    .textContent = "$" + bathroomCost;
+
+  document.getElementById("addonPrice")
+    .textContent = "$" + addons;
+
+  document.getElementById("price")
+    .textContent = "$" + total;
+
 
   const customer =
-    document.getElementById("customer").value ||
-    "your customer";
+    document.getElementById("customer").value.trim()
+    || "your customer";
 
-  document.getElementById("summary").textContent =
-    "A quote of $" + price +
-    " has been calculated for " +
-    customer + ".";
 
-  document.getElementById("result").style.display =
-    "block";
+  document.getElementById("resultText")
+    .textContent =
+      "Your estimated quote for " +
+      customer +
+      " is $" +
+      total +
+      ".";
+
+
+  document.getElementById("result")
+    .style.display = "block";
+
 }
 
-function sendQuote() {
+
+function createQuote() {
+
+  const price =
+    document.getElementById("price").textContent;
+
+  if (price === "$0") {
+
+    alert(
+      "Please calculate the quote first."
+    );
+
+    return;
+  }
+
 
   alert(
-    "Professional quote created! " +
-    "Customer approval and online payments will be added next."
+    "Professional quote created for " +
+    price +
+    ". Customer approval and payments will be added next."
   );
+
+}
+
+
+function resetQuote() {
+
+  document.getElementById("customer").value = "";
+
+  document.getElementById("bedrooms").value = 3;
+
+  document.getElementById("bathrooms").value = 2;
+
+  document.getElementById("cleaning").value = "standard";
+
+
+  document
+    .querySelectorAll(".addon-check")
+    .forEach(function(item) {
+
+      item.checked = false;
+
+    });
+
+
+  document.getElementById("price")
+    .textContent = "$0";
+
+  document.getElementById("basePrice")
+    .textContent = "$0";
+
+  document.getElementById("bedroomPrice")
+    .textContent = "$0";
+
+  document.getElementById("bathroomPrice")
+    .textContent = "$0";
+
+  document.getElementById("addonPrice")
+    .textContent = "$0";
+
+
+  document.getElementById("result")
+    .style.display = "none";
 
 }
 

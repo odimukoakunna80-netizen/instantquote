@@ -51,16 +51,18 @@
       font-size: 16px;
       font-weight: 700;
       cursor: pointer;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    button:active {
+      transform: scale(0.99);
     }
 
     .primary-btn {
       background: #2563eb;
       color: white;
       margin-top: 10px;
-    }
-
-    .primary-btn:hover {
-      background: #1d4ed8;
     }
 
     .secondary-btn {
@@ -424,6 +426,7 @@
     }
 
     @media (max-width: 700px) {
+
       .hero h1 {
         font-size: 34px;
       }
@@ -468,6 +471,7 @@
 <body>
 
 <header>
+
   <div class="logo">
     InstantQuote
   </div>
@@ -475,19 +479,24 @@
   <div class="beta">
     ● Free Beta
   </div>
+
 </header>
 
 
 <div id="calculatorView">
 
   <div class="top-nav">
+
     <button
+      type="button"
       class="dashboard-btn"
       onclick="showDashboard()"
     >
       📊 View Dashboard
     </button>
+
   </div>
+
 
   <section class="hero">
 
@@ -502,11 +511,13 @@
 
   </section>
 
+
   <main class="main">
 
     <div class="form-card">
 
       <div class="form-group">
+
         <label for="customer">
           Customer Name
         </label>
@@ -516,23 +527,37 @@
           id="customer"
           placeholder="Enter customer name"
         >
+
       </div>
 
 
       <div class="form-group">
+
         <label for="property">
           Property Type
         </label>
 
         <select id="property">
-          <option value="House">House</option>
-          <option value="Apartment">Apartment</option>
-          <option value="Office">Office</option>
+
+          <option value="House">
+            House
+          </option>
+
+          <option value="Apartment">
+            Apartment
+          </option>
+
+          <option value="Office">
+            Office
+          </option>
+
         </select>
+
       </div>
 
 
       <div class="form-group">
+
         <label for="bedrooms">
           Bedrooms
         </label>
@@ -543,10 +568,12 @@
           value="3"
           min="0"
         >
+
       </div>
 
 
       <div class="form-group">
+
         <label for="bathrooms">
           Bathrooms
         </label>
@@ -557,10 +584,12 @@
           value="2"
           min="0"
         >
+
       </div>
 
 
       <div class="form-group">
+
         <label for="cleaning">
           Cleaning Service
         </label>
@@ -580,6 +609,7 @@
           </option>
 
         </select>
+
       </div>
 
 
@@ -589,49 +619,62 @@
           Add-ons
         </label>
 
+
         <div class="addons">
 
           <label class="addon">
+
             <input
               type="checkbox"
               class="addon-check"
               data-price="25"
               data-name="Oven Cleaning"
             >
+
             Oven Cleaning — $25
+
           </label>
 
 
           <label class="addon">
+
             <input
               type="checkbox"
               class="addon-check"
               data-price="25"
               data-name="Fridge Cleaning"
             >
+
             Fridge Cleaning — $25
+
           </label>
 
 
           <label class="addon">
+
             <input
               type="checkbox"
               class="addon-check"
               data-price="35"
               data-name="Interior Windows"
             >
+
             Interior Windows — $35
+
           </label>
 
 
           <label class="addon">
+
             <input
               type="checkbox"
               class="addon-check"
               data-price="30"
               data-name="Cabinet Cleaning"
             >
+
             Cabinet Cleaning — $30
+
           </label>
 
         </div>
@@ -640,6 +683,7 @@
 
 
       <button
+        type="button"
         class="primary-btn"
         onclick="calculateQuote()"
       >
@@ -667,6 +711,7 @@
           $0
         </div>
 
+
         <div class="breakdown">
 
           <div class="breakdown-row">
@@ -693,6 +738,7 @@
 
 
         <button
+          type="button"
           class="primary-btn"
           onclick="createQuote()"
         >
@@ -701,6 +747,7 @@
 
 
         <button
+          type="button"
           class="danger-btn"
           onclick="resetQuote()"
         >
@@ -717,18 +764,41 @@
   <section class="features">
 
     <div class="feature">
-      <strong>⚡ Fast quoting</strong>
-      <p>Create estimates in seconds.</p>
+
+      <strong>
+        ⚡ Fast quoting
+      </strong>
+
+      <p>
+        Create estimates in seconds.
+      </p>
+
     </div>
 
-    <div class="feature">
-      <strong>💼 Professional</strong>
-      <p>Give customers a clean professional quote.</p>
-    </div>
 
     <div class="feature">
-      <strong>📱 Works on mobile</strong>
-      <p>Quote customers from anywhere.</p>
+
+      <strong>
+        💼 Professional
+      </strong>
+
+      <p>
+        Give customers a clean professional quote.
+      </p>
+
+    </div>
+
+
+    <div class="feature">
+
+      <strong>
+        📱 Works on mobile
+      </strong>
+
+      <p>
+        Quote customers from anywhere.
+      </p>
+
     </div>
 
   </section>
@@ -765,30 +835,36 @@
         <strong id="quoteCustomer"></strong>
       </div>
 
+
       <div class="quote-info-row">
         <span>Property</span>
         <strong id="quoteProperty"></strong>
       </div>
+
 
       <div class="quote-info-row">
         <span>Bedrooms</span>
         <strong id="quoteBedrooms"></strong>
       </div>
 
+
       <div class="quote-info-row">
         <span>Bathrooms</span>
         <strong id="quoteBathrooms"></strong>
       </div>
+
 
       <div class="quote-info-row">
         <span>Cleaning service</span>
         <strong id="quoteCleaning"></strong>
       </div>
 
+
       <div class="quote-info-row">
         <span>Add-ons</span>
         <strong id="quoteAddons"></strong>
       </div>
+
 
       <div class="quote-info-row">
         <span>Quote date</span>
@@ -812,6 +888,7 @@
 
 
     <button
+      type="button"
       class="primary-btn"
       onclick="acceptQuote()"
     >
@@ -820,6 +897,7 @@
 
 
     <button
+      type="button"
       class="secondary-btn"
       onclick="shareQuote()"
     >
@@ -828,6 +906,7 @@
 
 
     <button
+      type="button"
       class="danger-btn"
       onclick="backToCalculator()"
     >
@@ -836,6 +915,7 @@
 
 
     <button
+      type="button"
       class="dashboard-btn"
       onclick="showDashboard()"
     >
@@ -847,6 +927,7 @@
       id="acceptedMessage"
       class="accepted"
     >
+
       ✓ Quote accepted successfully!
 
       <br>
@@ -854,6 +935,7 @@
       <small>
         Thank you. The cleaning business has received your approval.
       </small>
+
     </div>
 
   </div>
@@ -879,6 +961,7 @@
 
 
     <button
+      type="button"
       class="primary-btn new-quote-btn"
       onclick="backToCalculatorFromDashboard()"
     >
@@ -891,6 +974,7 @@
   <div class="stats">
 
     <div class="stat">
+
       <div class="stat-label">
         Total Quotes
       </div>
@@ -901,10 +985,12 @@
       >
         0
       </div>
+
     </div>
 
 
     <div class="stat">
+
       <div class="stat-label">
         Pending
       </div>
@@ -915,10 +1001,12 @@
       >
         0
       </div>
+
     </div>
 
 
     <div class="stat">
+
       <div class="stat-label">
         Accepted
       </div>
@@ -929,10 +1017,12 @@
       >
         0
       </div>
+
     </div>
 
 
     <div class="stat">
+
       <div class="stat-label">
         Total Value
       </div>
@@ -943,6 +1033,7 @@
       >
         $0
       </div>
+
     </div>
 
   </div>
@@ -962,42 +1053,14 @@
 
 
 <footer>
+
   © 2026 InstantQuote.
   Professional cleaning quotes made simple.
+
 </footer>
 
 
-<!-- SUPABASE -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
-
-  /*
-    ============================================================
-    SUPABASE CONNECTION
-    ============================================================
-  */
-
-  const SUPABASE_URL =
-    "PASTE_YOUR_PROJECT_URL_HERE";
-
-  const SUPABASE_KEY =
-    "PASTE_YOUR_PUBLISHABLE_OR_ANON_KEY_HERE";
-
-
-  const supabaseClient =
-    window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_KEY
-    );
-
-
-  /*
-    ============================================================
-    INSTANTQUOTE APP
-    ============================================================
-  */
 
   let currentQuote = null;
 
@@ -1013,7 +1076,12 @@
 
     try {
 
-      return JSON.parse(saved);
+      const quotes =
+        JSON.parse(saved);
+
+      return Array.isArray(quotes)
+        ? quotes
+        : [];
 
     } catch (error) {
 
@@ -1036,8 +1104,11 @@
 
   function calculateQuote() {
 
+    const customerInput =
+      document.getElementById("customer");
+
     const customer =
-      document.getElementById("customer").value.trim();
+      customerInput.value.trim();
 
 
     const property =
@@ -1060,7 +1131,21 @@
       document.getElementById("cleaning").value;
 
 
-    let basePrice = 50;
+    if (!customer) {
+
+      alert(
+        "Please enter the customer's name first."
+      );
+
+      customerInput.focus();
+
+      return;
+
+    }
+
+
+    let basePrice =
+      50;
 
     let cleaningName =
       "Standard Cleaning";
@@ -1068,7 +1153,8 @@
 
     if (cleaning === "deep") {
 
-      basePrice = 100;
+      basePrice =
+        100;
 
       cleaningName =
         "Deep Cleaning";
@@ -1078,7 +1164,8 @@
 
     if (cleaning === "move") {
 
-      basePrice = 125;
+      basePrice =
+        125;
 
       cleaningName =
         "Move-In / Move-Out";
@@ -1094,23 +1181,32 @@
       bathrooms * 30;
 
 
-    let addonTotal = 0;
+    let addonTotal =
+      0;
 
-    let addonNames = [];
+
+    const addonNames =
+      [];
 
 
-    document
-      .querySelectorAll(".addon-check:checked")
-      .forEach(function(addon) {
+    const selectedAddons =
+      document.querySelectorAll(
+        ".addon-check:checked"
+      );
+
+
+    selectedAddons.forEach(
+      function(addon) {
 
         addonTotal +=
-          Number(addon.dataset.price);
+          Number(addon.dataset.price) || 0;
 
         addonNames.push(
           addon.dataset.name
         );
 
-      });
+      }
+    );
 
 
     const total =
@@ -1142,29 +1238,37 @@
 
     currentQuote = {
 
-      id: Date.now(),
+      id:
+        Date.now(),
 
-      customer: customer,
+      customer:
+        customer,
 
-      property: property,
+      property:
+        property,
 
-      bedrooms: bedrooms,
+      bedrooms:
+        bedrooms,
 
-      bathrooms: bathrooms,
+      bathrooms:
+        bathrooms,
 
-      cleaning: cleaningName,
+      cleaning:
+        cleaningName,
 
       addons:
         addonNames.length > 0
           ? addonNames.join(", ")
           : "None",
 
-      total: total,
+      total:
+        total,
 
       date:
         new Date().toLocaleDateString(),
 
-      status: "pending"
+      status:
+        "pending"
 
     };
 
@@ -1172,16 +1276,18 @@
     document.getElementById("result").style.display =
       "block";
 
+
+    document.getElementById("result").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
   }
 
 
-  async function createQuote() {
+  function createQuote() {
 
-    const price =
-      document.getElementById("price").textContent;
-
-
-    if (price === "$0") {
+    if (!currentQuote) {
 
       alert(
         "Please calculate the quote first."
@@ -1191,33 +1297,6 @@
 
     }
 
-
-    const customer =
-      document.getElementById("customer").value.trim();
-
-
-    if (!customer) {
-
-      alert(
-        "Please enter the customer's name first."
-      );
-
-      document
-        .getElementById("customer")
-        .focus();
-
-      return;
-
-    }
-
-
-    calculateQuote();
-
-
-    /*
-      Save locally first.
-      This keeps your current Dashboard working.
-    */
 
     const quotes =
       getSavedQuotes();
@@ -1231,70 +1310,6 @@
     saveQuotes(
       quotes
     );
-
-
-    /*
-      Save the same quote to Supabase.
-    */
-
-    try {
-
-      const { error } =
-        await supabaseClient
-          .from("quotes")
-          .insert([
-
-            {
-              id: currentQuote.id,
-
-              customer:
-                currentQuote.customer,
-
-              property:
-                currentQuote.property,
-
-              bedrooms:
-                currentQuote.bedrooms,
-
-              bathrooms:
-                currentQuote.bathrooms,
-
-              cleaning:
-                currentQuote.cleaning,
-
-              addons:
-                currentQuote.addons,
-
-              total:
-                currentQuote.total,
-
-              date:
-                currentQuote.date,
-
-              status:
-                currentQuote.status
-            }
-
-          ]);
-
-
-      if (error) {
-
-        console.error(
-          "Supabase error:",
-          error
-        );
-
-      }
-
-    } catch (error) {
-
-      console.error(
-        "Supabase connection error:",
-        error
-      );
-
-    }
 
 
     document.getElementById("quoteCustomer").textContent =
@@ -1345,12 +1360,15 @@
       "block";
 
 
-    window.scrollTo(0, 0);
+    window.scrollTo(
+      0,
+      0
+    );
 
   }
 
 
-  async function acceptQuote() {
+  function acceptQuote() {
 
     if (!currentQuote) {
 
@@ -1394,45 +1412,11 @@
     );
 
 
-    /*
-      Update Supabase.
-    */
-
-    try {
-
-      const { error } =
-        await supabaseClient
-          .from("quotes")
-          .update({
-            status: "accepted"
-          })
-          .eq(
-            "id",
-            currentQuote.id
-          );
-
-
-      if (error) {
-
-        console.error(
-          "Supabase update error:",
-          error
-        );
-
-      }
-
-    } catch (error) {
-
-      console.error(
-        "Supabase connection error:",
-        error
-      );
-
-    }
-
-
     document.getElementById("acceptedMessage").style.display =
       "block";
+
+
+    loadDashboard();
 
   }
 
@@ -1454,14 +1438,25 @@
       "\nProperty: " +
       currentQuote.property +
 
+      "\nBedrooms: " +
+      currentQuote.bedrooms +
+
+      "\nBathrooms: " +
+      currentQuote.bathrooms +
+
       "\nCleaning: " +
       currentQuote.cleaning +
+
+      "\nAdd-ons: " +
+      currentQuote.addons +
 
       "\nTotal: $" +
       currentQuote.total;
 
 
-    if (navigator.share) {
+    if (
+      navigator.share
+    ) {
 
       try {
 
@@ -1525,7 +1520,10 @@
     loadDashboard();
 
 
-    window.scrollTo(0, 0);
+    window.scrollTo(
+      0,
+      0
+    );
 
   }
 
@@ -1564,7 +1562,8 @@
       quotes.reduce(
         function(sum, quote) {
 
-          return sum + Number(quote.total);
+          return sum +
+            Number(quote.total || 0);
 
         },
         0
@@ -1642,12 +1641,18 @@
           '<div>' +
 
           '<div class="quote-customer">' +
-          escapeHtml(quote.customer) +
+
+          escapeHtml(
+            quote.customer
+          ) +
+
           '</div>' +
 
           '<div class="quote-details">' +
 
-          escapeHtml(quote.property) +
+          escapeHtml(
+            quote.property
+          ) +
 
           ' • ' +
 
@@ -1661,7 +1666,9 @@
 
           '<br>' +
 
-          escapeHtml(quote.date) +
+          escapeHtml(
+            quote.date
+          ) +
 
           '</div>' +
 
@@ -1672,12 +1679,15 @@
           '<div class="quote-amount">' +
 
           '$' +
+
           quote.total +
 
           '</div>' +
 
           '<div class="status ' +
+
           statusClass +
+
           '">' +
 
           statusText +
@@ -1704,7 +1714,7 @@
 
 
     div.textContent =
-      text;
+      String(text ?? "");
 
 
     return div.innerHTML;
@@ -1726,7 +1736,10 @@
       "block";
 
 
-    window.scrollTo(0, 0);
+    window.scrollTo(
+      0,
+      0
+    );
 
   }
 
@@ -1745,7 +1758,10 @@
       "block";
 
 
-    window.scrollTo(0, 0);
+    window.scrollTo(
+      0,
+      0
+    );
 
   }
 
@@ -1774,11 +1790,14 @@
 
     document
       .querySelectorAll(".addon-check")
-      .forEach(function(addon) {
+      .forEach(
+        function(addon) {
 
-        addon.checked = false;
+          addon.checked =
+            false;
 
-      });
+        }
+      );
 
 
     document.getElementById("price").textContent =
@@ -1805,12 +1824,31 @@
       "none";
 
 
-    currentQuote = null;
+    currentQuote =
+      null;
 
 
-    window.scrollTo(0, 0);
+    window.scrollTo(
+      0,
+      0
+    );
 
   }
+
+
+  /*
+    Make sure the dashboard has valid data
+    when the page first loads.
+  */
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+      loadDashboard();
+
+    }
+  );
 
 </script>
 

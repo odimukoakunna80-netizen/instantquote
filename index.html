@@ -418,6 +418,13 @@
       color: #64748b;
     }
 
+    .cloud-status {
+      text-align: center;
+      margin-top: 12px;
+      color: #64748b;
+      font-size: 12px;
+    }
+
     footer {
       text-align: center;
       padding: 30px 20px;
@@ -689,6 +696,10 @@
       >
         Calculate Quote
       </button>
+
+      <div class="cloud-status" id="cloudStatus">
+        Local backup active
+      </div>
 
     </div>
 
@@ -1060,24 +1071,116 @@
 </footer>
 
 
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
 <script>
+
+  /* =====================================================
+     SUPABASE CONNECTION
+     ===================================================== */
+
+  const SUPABASE_URL =
+    "https://znztkxrxyuewkouktssb.supabase.co";
+
+  
+
+  const SUPABASE_KEY =
+    "sb_publishable_sV9C4wf3BIrXAkTEPiiDhQ_XZrj8S7c" ; 
+
+
+  let supabaseClient = null;
+
+
+  /*
+    Supabase is optional.
+
+    If the Supabase library or key is unavailable,
+    InstantQuote will continue working with LocalStorage.
+  */
+
+  try {
+
+    if (
+      window.supabase &&
+      SUPABASE_KEY !== "PASTE_YOUR_PUBLISHABLE_KEY_HERE"
+    ) {
+
+      supabaseClient =
+        window.supabase.createClient(
+          SUPABASE_URL,
+          SUPABASE_KEY
+        );
+
+    }
+
+  } catch (error) {
+
+    console.log(
+      "Supabase unavailable. Local mode will continue.",
+      error
+    );
+
+    supabaseClient = null;
+
+  }
+
+
+  function updateCloudStatus() {
+
+    const status =
+      document.getElementById("cloudStatus");
+
+    if (!status) {
+      return;
+    }
+
+
+    if (supabaseClient) {
+
+      status.textContent =
+        "☁️ Cloud database connected";
+
+    } else {
+
+      status.textContent =
+        "Local backup active";
+
+    }
+
+  }
+
+
+  /* =====================================================
+     QUOTE STATE
+     ===================================================== */
 
   let currentQuote = null;
 
 
+  /* =====================================================
+     LOCAL STORAGE
+     ===================================================== */
+
   function getSavedQuotes() {
 
     const saved =
-      localStorage.getItem("instantQuoteQuotes");
+      localStorage.getItem(
+        "instantQuoteQuotes"
+      );
+
 
     if (!saved) {
       return [];
     }
 
+
     try {
 
       const quotes =
         JSON.parse(saved);
+
 
       return Array.isArray(quotes)
         ? quotes
@@ -1102,10 +1205,15 @@
   }
 
 
+  /* =====================================================
+     CALCULATE QUOTE
+     ===================================================== */
+
   function calculateQuote() {
 
     const customerInput =
       document.getElementById("customer");
+
 
     const customer =
       customerInput.value.trim();
@@ -1137,7 +1245,9 @@
         "Please enter the customer's name first."
       );
 
+
       customerInput.focus();
+
 
       return;
 
@@ -1147,6 +1257,7 @@
     let basePrice =
       50;
 
+
     let cleaningName =
       "Standard Cleaning";
 
@@ -1155,6 +1266,7 @@
 
       basePrice =
         100;
+
 
       cleaningName =
         "Deep Cleaning";
@@ -1166,6 +1278,7 @@
 
       basePrice =
         125;
+
 
       cleaningName =
         "Move-In / Move-Out";
@@ -1199,7 +1312,10 @@
       function(addon) {
 
         addonTotal +=
-          Number(addon.dataset.price) || 0;
+          Number(
+            addon.dataset.price
+          ) || 0;
+
 
         addonNames.push(
           addon.dataset.name
@@ -1278,14 +1394,23 @@
 
 
     document.getElementById("result").scrollIntoView({
-      behavior: "smooth",
-      block: "start"
+
+      behavior:
+        "smooth",
+
+      block:
+        "start"
+
     });
 
   }
 
 
-  function createQuote() {
+  /* =====================================================
+     CREATE PROFESSIONAL QUOTE
+     ===================================================== */
+
+  async function createQuote() {
 
     if (!currentQuote) {
 
@@ -1298,19 +1423,125 @@
     }
 
 
+    /*
+      Save locally first.
+
+      This means the calculator still works even if
+      Supabase is temporarily unavailable.
+    */
+
     const quotes =
       getSavedQuotes();
 
 
-    quotes.unshift(
-      currentQuote
-    );
+    const existingIndex =
+      quotes.findIndex(
+        function(quote) {
+
+          return quote.id === currentQuote.id;
+
+        }
+      );
+
+
+    if (existingIndex === -1) {
+
+      quotes.unshift(
+        currentQuote
+      );
+
+    } else {
+
+      quotes[existingIndex] =
+        currentQuote;
+
+    }
 
 
     saveQuotes(
       quotes
     );
 
+
+    /*
+      Save to Supabase.
+    */
+
+    if (supabaseClient) {
+
+      const cloudQuote = {
+
+        id:
+          currentQuote.id,
+
+        customer:
+          currentQuote.customer,
+
+        property:
+          currentQuote.property,
+
+        bedrooms:
+          currentQuote.bedrooms,
+
+        bathrooms:
+          currentQuote.bathrooms,
+
+        cleaning:
+          currentQuote.cleaning,
+
+        addons:
+          currentQuote.addons,
+
+        total:
+          currentQuote.total,
+
+        date:
+          currentQuote.date,
+
+        status:
+          currentQuote.status
+
+      };
+
+
+      try {
+
+        const result =
+          await supabaseClient
+            .from("quotes")
+            .upsert(
+              [cloudQuote],
+              {
+                onConflict:
+                  "id"
+              }
+            );
+
+
+        if (result.error) {
+
+          console.log(
+            "Supabase save error:",
+            result.error
+          );
+
+        }
+
+      } catch (error) {
+
+        console.log(
+          "Supabase save failed. Local copy remains available.",
+          error
+        );
+
+      }
+
+    }
+
+
+    /*
+      Fill professional quote screen.
+    */
 
     document.getElementById("quoteCustomer").textContent =
       currentQuote.customer;
@@ -1368,7 +1599,11 @@
   }
 
 
-  function acceptQuote() {
+  /* =====================================================
+     ACCEPT QUOTE
+     ===================================================== */
+
+  async function acceptQuote() {
 
     if (!currentQuote) {
 
@@ -1384,6 +1619,10 @@
     currentQuote.status =
       "accepted";
 
+
+    /*
+      Update LocalStorage.
+    */
 
     const quotes =
       getSavedQuotes();
@@ -1404,12 +1643,60 @@
       quotes[index].status =
         "accepted";
 
+    } else {
+
+      quotes.unshift(
+        currentQuote
+      );
+
     }
 
 
     saveQuotes(
       quotes
     );
+
+
+    /*
+      Update Supabase.
+    */
+
+    if (supabaseClient) {
+
+      try {
+
+        const result =
+          await supabaseClient
+            .from("quotes")
+            .update({
+              status:
+                "accepted"
+            })
+            .eq(
+              "id",
+              currentQuote.id
+            );
+
+
+        if (result.error) {
+
+          console.log(
+            "Supabase accept error:",
+            result.error
+          );
+
+        }
+
+      } catch (error) {
+
+        console.log(
+          "Supabase update failed.",
+          error
+        );
+
+      }
+
+    }
 
 
     document.getElementById("acceptedMessage").style.display =
@@ -1420,6 +1707,10 @@
 
   }
 
+
+  /* =====================================================
+     SHARE QUOTE
+     ===================================================== */
 
   async function shareQuote() {
 
@@ -1486,6 +1777,7 @@
           shareText
         );
 
+
         alert(
           "Quote copied. You can now paste it into WhatsApp, email, or a message."
         );
@@ -1502,6 +1794,10 @@
 
   }
 
+
+  /* =====================================================
+     SHOW DASHBOARD
+     ===================================================== */
 
   function showDashboard() {
 
@@ -1528,10 +1824,77 @@
   }
 
 
-  function loadDashboard() {
+  /* =====================================================
+     LOAD DASHBOARD
+     ===================================================== */
 
-    const quotes =
+  async function loadDashboard() {
+
+    /*
+      Start with local data.
+    */
+
+    let quotes =
       getSavedQuotes();
+
+
+    /*
+      If Supabase is connected,
+      try to get cloud data.
+    */
+
+    if (supabaseClient) {
+
+      try {
+
+        const result =
+          await supabaseClient
+            .from("quotes")
+            .select("*")
+            .order(
+              "id",
+              {
+                ascending:
+                  false
+              }
+            );
+
+
+        if (
+          !result.error &&
+          Array.isArray(result.data)
+        ) {
+
+          quotes =
+            result.data;
+
+
+          /*
+            Keep local backup synchronized.
+          */
+
+          saveQuotes(
+            quotes
+          );
+
+        } else {
+
+          console.log(
+            "Could not load cloud quotes. Using local backup."
+          );
+
+        }
+
+      } catch (error) {
+
+        console.log(
+          "Supabase dashboard error. Using local backup.",
+          error
+        );
+
+      }
+
+    }
 
 
     const totalQuotes =
@@ -1563,7 +1926,9 @@
         function(sum, quote) {
 
           return sum +
-            Number(quote.total || 0);
+            Number(
+              quote.total || 0
+            );
 
         },
         0
@@ -1607,6 +1972,7 @@
         'Create your first cleaning quote to see it here.' +
 
         '</div>';
+
 
       return;
 
@@ -1656,11 +2022,15 @@
 
           ' • ' +
 
-          quote.bedrooms +
+          Number(
+            quote.bedrooms || 0
+          ) +
 
           ' bedrooms • ' +
 
-          quote.bathrooms +
+          Number(
+            quote.bathrooms || 0
+          ) +
 
           ' bathrooms' +
 
@@ -1680,7 +2050,9 @@
 
           '$' +
 
-          quote.total +
+          Number(
+            quote.total || 0
+          ) +
 
           '</div>' +
 
@@ -1707,6 +2079,10 @@
   }
 
 
+  /* =====================================================
+     SECURITY HELPER
+     ===================================================== */
+
   function escapeHtml(text) {
 
     const div =
@@ -1714,13 +2090,19 @@
 
 
     div.textContent =
-      String(text ?? "");
+      String(
+        text ?? ""
+      );
 
 
     return div.innerHTML;
 
   }
 
+
+  /* =====================================================
+     BACK TO CALCULATOR
+     ===================================================== */
 
   function backToCalculator() {
 
@@ -1765,6 +2147,10 @@
 
   }
 
+
+  /* =====================================================
+     RESET QUOTE
+     ===================================================== */
 
   function resetQuote() {
 
@@ -1836,14 +2222,15 @@
   }
 
 
-  /*
-    Make sure the dashboard has valid data
-    when the page first loads.
-  */
+  /* =====================================================
+     PAGE LOAD
+     ===================================================== */
 
   document.addEventListener(
     "DOMContentLoaded",
     function() {
+
+      updateCloudStatus();
 
       loadDashboard();
 

@@ -213,8 +213,6 @@
       font-size: 14px;
     }
 
-    /* CUSTOMER QUOTE */
-
     #quoteScreen {
       display: none;
       max-width: 650px;
@@ -291,8 +289,6 @@
       text-align: center;
       font-weight: 700;
     }
-
-    /* DASHBOARD */
 
     #dashboardScreen {
       display: none;
@@ -428,7 +424,6 @@
     }
 
     @media (max-width: 700px) {
-
       .hero h1 {
         font-size: 34px;
       }
@@ -473,7 +468,6 @@
 <body>
 
 <header>
-
   <div class="logo">
     InstantQuote
   </div>
@@ -481,23 +475,18 @@
   <div class="beta">
     ● Free Beta
   </div>
-
 </header>
 
-
-<!-- CALCULATOR -->
 
 <div id="calculatorView">
 
   <div class="top-nav">
-
     <button
       class="dashboard-btn"
       onclick="showDashboard()"
     >
       📊 View Dashboard
     </button>
-
   </div>
 
   <section class="hero">
@@ -518,7 +507,6 @@
     <div class="form-card">
 
       <div class="form-group">
-
         <label for="customer">
           Customer Name
         </label>
@@ -528,29 +516,23 @@
           id="customer"
           placeholder="Enter customer name"
         >
-
       </div>
 
 
       <div class="form-group">
-
         <label for="property">
           Property Type
         </label>
 
         <select id="property">
-
           <option value="House">House</option>
           <option value="Apartment">Apartment</option>
           <option value="Office">Office</option>
-
         </select>
-
       </div>
 
 
       <div class="form-group">
-
         <label for="bedrooms">
           Bedrooms
         </label>
@@ -561,12 +543,10 @@
           value="3"
           min="0"
         >
-
       </div>
 
 
       <div class="form-group">
-
         <label for="bathrooms">
           Bathrooms
         </label>
@@ -577,12 +557,10 @@
           value="2"
           min="0"
         >
-
       </div>
 
 
       <div class="form-group">
-
         <label for="cleaning">
           Cleaning Service
         </label>
@@ -602,7 +580,6 @@
           </option>
 
         </select>
-
       </div>
 
 
@@ -759,8 +736,6 @@
 </div>
 
 
-<!-- CUSTOMER QUOTE -->
-
 <section id="quoteScreen">
 
   <div class="quote-header">
@@ -860,8 +835,6 @@
     </button>
 
 
-    <!-- NEW DASHBOARD BUTTON -->
-
     <button
       class="dashboard-btn"
       onclick="showDashboard()"
@@ -887,8 +860,6 @@
 
 </section>
 
-
-<!-- DASHBOARD -->
 
 <section id="dashboardScreen">
 
@@ -920,7 +891,6 @@
   <div class="stats">
 
     <div class="stat">
-
       <div class="stat-label">
         Total Quotes
       </div>
@@ -931,12 +901,10 @@
       >
         0
       </div>
-
     </div>
 
 
     <div class="stat">
-
       <div class="stat-label">
         Pending
       </div>
@@ -947,12 +915,10 @@
       >
         0
       </div>
-
     </div>
 
 
     <div class="stat">
-
       <div class="stat-label">
         Accepted
       </div>
@@ -963,12 +929,10 @@
       >
         0
       </div>
-
     </div>
 
 
     <div class="stat">
-
       <div class="stat-label">
         Total Value
       </div>
@@ -979,7 +943,6 @@
       >
         $0
       </div>
-
     </div>
 
   </div>
@@ -999,14 +962,42 @@
 
 
 <footer>
-
   © 2026 InstantQuote.
   Professional cleaning quotes made simple.
-
 </footer>
 
 
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
+
+  /*
+    ============================================================
+    SUPABASE CONNECTION
+    ============================================================
+  */
+
+  const SUPABASE_URL =
+    "PASTE_YOUR_PROJECT_URL_HERE";
+
+  const SUPABASE_KEY =
+    "PASTE_YOUR_PUBLISHABLE_OR_ANON_KEY_HERE";
+
+
+  const supabaseClient =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+
+  /*
+    ============================================================
+    INSTANTQUOTE APP
+    ============================================================
+  */
 
   let currentQuote = null;
 
@@ -1021,10 +1012,15 @@
     }
 
     try {
+
       return JSON.parse(saved);
+
     } catch (error) {
+
       return [];
+
     }
+
   }
 
 
@@ -1043,31 +1039,39 @@
     const customer =
       document.getElementById("customer").value.trim();
 
+
     const property =
       document.getElementById("property").value;
+
 
     const bedrooms =
       Number(
         document.getElementById("bedrooms").value
       ) || 0;
 
+
     const bathrooms =
       Number(
         document.getElementById("bathrooms").value
       ) || 0;
+
 
     const cleaning =
       document.getElementById("cleaning").value;
 
 
     let basePrice = 50;
-    let cleaningName = "Standard Cleaning";
+
+    let cleaningName =
+      "Standard Cleaning";
 
 
     if (cleaning === "deep") {
 
       basePrice = 100;
-      cleaningName = "Deep Cleaning";
+
+      cleaningName =
+        "Deep Cleaning";
 
     }
 
@@ -1075,7 +1079,9 @@
     if (cleaning === "move") {
 
       basePrice = 125;
-      cleaningName = "Move-In / Move-Out";
+
+      cleaningName =
+        "Move-In / Move-Out";
 
     }
 
@@ -1083,11 +1089,13 @@
     const bedroomTotal =
       bedrooms * 25;
 
+
     const bathroomTotal =
       bathrooms * 30;
 
 
     let addonTotal = 0;
+
     let addonNames = [];
 
 
@@ -1115,14 +1123,18 @@
     document.getElementById("price").textContent =
       "$" + total;
 
+
     document.getElementById("basePrice").textContent =
       "$" + basePrice;
+
 
     document.getElementById("bedroomPrice").textContent =
       "$" + bedroomTotal;
 
+
     document.getElementById("bathroomPrice").textContent =
       "$" + bathroomTotal;
+
 
     document.getElementById("addonPrice").textContent =
       "$" + addonTotal;
@@ -1163,7 +1175,7 @@
   }
 
 
-  function createQuote() {
+  async function createQuote() {
 
     const price =
       document.getElementById("price").textContent;
@@ -1202,6 +1214,11 @@
     calculateQuote();
 
 
+    /*
+      Save locally first.
+      This keeps your current Dashboard working.
+    */
+
     const quotes =
       getSavedQuotes();
 
@@ -1216,26 +1233,97 @@
     );
 
 
+    /*
+      Save the same quote to Supabase.
+    */
+
+    try {
+
+      const { error } =
+        await supabaseClient
+          .from("quotes")
+          .insert([
+
+            {
+              id: currentQuote.id,
+
+              customer:
+                currentQuote.customer,
+
+              property:
+                currentQuote.property,
+
+              bedrooms:
+                currentQuote.bedrooms,
+
+              bathrooms:
+                currentQuote.bathrooms,
+
+              cleaning:
+                currentQuote.cleaning,
+
+              addons:
+                currentQuote.addons,
+
+              total:
+                currentQuote.total,
+
+              date:
+                currentQuote.date,
+
+              status:
+                currentQuote.status
+            }
+
+          ]);
+
+
+      if (error) {
+
+        console.error(
+          "Supabase error:",
+          error
+        );
+
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Supabase connection error:",
+        error
+      );
+
+    }
+
+
     document.getElementById("quoteCustomer").textContent =
       currentQuote.customer;
+
 
     document.getElementById("quoteProperty").textContent =
       currentQuote.property;
 
+
     document.getElementById("quoteBedrooms").textContent =
       currentQuote.bedrooms;
+
 
     document.getElementById("quoteBathrooms").textContent =
       currentQuote.bathrooms;
 
+
     document.getElementById("quoteCleaning").textContent =
       currentQuote.cleaning;
+
 
     document.getElementById("quoteAddons").textContent =
       currentQuote.addons;
 
+
     document.getElementById("quoteDate").textContent =
       currentQuote.date;
+
 
     document.getElementById("quoteTotal").textContent =
       "$" + currentQuote.total;
@@ -1248,8 +1336,10 @@
     document.getElementById("calculatorView").style.display =
       "none";
 
+
     document.getElementById("dashboardScreen").style.display =
       "none";
+
 
     document.getElementById("quoteScreen").style.display =
       "block";
@@ -1260,7 +1350,7 @@
   }
 
 
-  function acceptQuote() {
+  async function acceptQuote() {
 
     if (!currentQuote) {
 
@@ -1302,6 +1392,43 @@
     saveQuotes(
       quotes
     );
+
+
+    /*
+      Update Supabase.
+    */
+
+    try {
+
+      const { error } =
+        await supabaseClient
+          .from("quotes")
+          .update({
+            status: "accepted"
+          })
+          .eq(
+            "id",
+            currentQuote.id
+          );
+
+
+      if (error) {
+
+        console.error(
+          "Supabase update error:",
+          error
+        );
+
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Supabase connection error:",
+        error
+      );
+
+    }
 
 
     document.getElementById("acceptedMessage").style.display =
@@ -1386,8 +1513,10 @@
     document.getElementById("calculatorView").style.display =
       "none";
 
+
     document.getElementById("quoteScreen").style.display =
       "none";
+
 
     document.getElementById("dashboardScreen").style.display =
       "block";
@@ -1445,11 +1574,14 @@
     document.getElementById("totalQuotes").textContent =
       totalQuotes;
 
+
     document.getElementById("pendingQuotes").textContent =
       pending;
 
+
     document.getElementById("acceptedQuotes").textContent =
       accepted;
+
 
     document.getElementById("totalValue").textContent =
       "$" + totalValue;
@@ -1535,7 +1667,6 @@
 
           '</div>' +
 
-
           '<div class="quote-right">' +
 
           '<div class="quote-amount">' +
@@ -1586,8 +1717,10 @@
     document.getElementById("quoteScreen").style.display =
       "none";
 
+
     document.getElementById("dashboardScreen").style.display =
       "none";
+
 
     document.getElementById("calculatorView").style.display =
       "block";
@@ -1603,8 +1736,10 @@
     document.getElementById("dashboardScreen").style.display =
       "none";
 
+
     document.getElementById("quoteScreen").style.display =
       "none";
+
 
     document.getElementById("calculatorView").style.display =
       "block";
@@ -1620,14 +1755,18 @@
     document.getElementById("customer").value =
       "";
 
+
     document.getElementById("bedrooms").value =
       "3";
+
 
     document.getElementById("bathrooms").value =
       "2";
 
+
     document.getElementById("property").value =
       "House";
+
 
     document.getElementById("cleaning").value =
       "standard";
@@ -1645,14 +1784,18 @@
     document.getElementById("price").textContent =
       "$0";
 
+
     document.getElementById("basePrice").textContent =
       "$0";
+
 
     document.getElementById("bedroomPrice").textContent =
       "$0";
 
+
     document.getElementById("bathroomPrice").textContent =
       "$0";
+
 
     document.getElementById("addonPrice").textContent =
       "$0";

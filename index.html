@@ -1,1 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>InstantQuote — Cleaning Quotes Made Simple</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f6f8fb;
+      color: #172033;
+    }
+
+    header {
+      background: white;
+      border-bottom: 1px solid #e5e9ef;
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 23px;
+      font-weight: 800;
+    }
+
+    .logo span {
+      color: #2563eb;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 55px 20px 35px;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      line-height: 1.1;
+      margin-bottom: 15px;
+    }
+
+    .hero h1 span {
+      color: #2563eb;
+    }
+
+    .hero p {
+      max-width: 600px;
+      margin: auto;
+      color: #667085;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 25px auto 70px;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #e3e8ef;
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.06);
+    }
+
+    .card h2 {
+      margin-bottom: 22px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d5dbe5;
+      border-radius: 10px;
+      font-size: 16px;
+      background: white;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .price-box {
+      background: #f1f5ff;
+      border-radius: 14px;
+      padding: 22px;
+      margin-top: 22px;
+      text-align: center;
+    }
+
+    .price-label {
+      color: #667085;
+      margin-bottom: 5px;
+    }
+
+    .price {
+      font-size: 40px;
+      font-weight: 800;
+      color: #2563eb;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 15px;
+      border: none;
+      border-radius: 11px;
+      background: #2563eb;
+      color: white;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .result {
+      display: none;
+      margin-top: 25px;
+      padding: 22px;
+      border: 1px solid #dce3ed;
+      border-radius: 14px;
+    }
+
+    .result h3 {
+      margin-bottom: 12px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: white;
+      border-top: 1px solid #e5e9ef;
+      color: #667085;
+    }
+
+    @media (max-width: 650px) {
+      .hero h1 {
+        font-size: 34px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    Instant<span>Quote</span>
+  </div>
+</header>
+
+<section class="hero">
+
+  <h1>
+    Create a cleaning quote
+    <span>in minutes.</span>
+  </h1>
+
+  <p>
+    Quickly estimate your cleaning price and create a professional quote
+    for your customer.
+  </p>
+
+</section>
+
+<div class="container">
+
+  <div class="card">
+
+    <h2>Create New Quote</h2>
+
+    <div class="field">
+      <label>Customer Name</label>
+      <input
+        id="customer"
+        type="text"
+        placeholder="e.g. Sarah Johnson"
+      >
+    </div>
+
+    <div class="grid">
+
+      <div class="field">
+        <label>Bedrooms</label>
+        <input
+          id="bedrooms"
+          type="number"
+          min="0"
+          value="3"
+        >
+      </div>
+
+      <div class="field">
+        <label>Bathrooms</label>
+        <input
+          id="bathrooms"
+          type="number"
+          min="0"
+          value="2"
+        >
+      </div>
+
+    </div>
+
+    <div class="field">
+
+      <label>Cleaning Type</label>
+
+      <select id="cleaning">
+
+        <option value="standard">
+          Standard Cleaning
+        </option>
+
+        <option value="deep">
+          Deep Cleaning
+        </option>
+
+        <option value="move">
+          Move In / Move Out
+        </option>
+
+      </select>
+
+    </div>
+
+    <div class="price-box">
+
+      <div class="price-label">
+        Estimated Quote
+      </div>
+
+      <div class="price" id="price">
+        $0
+      </div>
+
+    </div>
+
+    <button onclick="calculateQuote()">
+      Calculate Quote
+    </button>
+
+    <div class="result" id="result">
+
+      <h3>Quote Ready</h3>
+
+      <p id="summary"></p>
+
+      <button onclick="sendQuote()">
+        Create Professional Quote
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  © 2026 InstantQuote
+</footer>
+
+<script>
+
+function calculateQuote() {
+
+  const bedrooms =
+    Number(document.getElementById("bedrooms").value) || 0;
+
+  const bathrooms =
+    Number(document.getElementById("bathrooms").value) || 0;
+
+  const cleaning =
+    document.getElementById("cleaning").value;
+
+  let price = 50;
+
+  price += bedrooms * 25;
+
+  price += bathrooms * 30;
+
+  if (cleaning === "deep") {
+    price += 75;
+  }
+
+  if (cleaning === "move") {
+    price += 100;
+  }
+
+  document.getElementById("price").textContent =
+    "$" + price;
+
+  const customer =
+    document.getElementById("customer").value ||
+    "your customer";
+
+  document.getElementById("summary").textContent =
+    "A quote of $" + price +
+    " has been calculated for " +
+    customer + ".";
+
+  document.getElementById("result").style.display =
+    "block";
+}
+
+function sendQuote() {
+
+  alert(
+    "Professional quote created! " +
+    "Customer approval and online payments will be added next."
+  );
+
+}
+
+</script>
+
+</body>
+</html>

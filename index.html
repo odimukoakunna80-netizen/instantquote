@@ -158,18 +158,6 @@
       display: none;
     }
 
-    .result h2 {
-      margin-bottom: 8px;
-    }
-
-    .result p {
-      color: #64748b;
-    }
-
-    .price-card {
-      margin-top: 20px;
-    }
-
     .price {
       font-size: 42px;
       font-weight: 800;
@@ -216,7 +204,7 @@
       font-size: 14px;
     }
 
-    /* CUSTOMER QUOTE SCREEN */
+    /* CUSTOMER QUOTE */
 
     #quoteScreen {
       display: none;
@@ -260,6 +248,7 @@
       justify-content: space-between;
       border-bottom: 1px solid #f1f5f9;
       padding-bottom: 10px;
+      gap: 15px;
     }
 
     .quote-info-row span:first-child {
@@ -302,6 +291,7 @@
     }
 
     @media (max-width: 650px) {
+
       .hero h1 {
         font-size: 34px;
       }
@@ -314,25 +304,45 @@
       .price {
         font-size: 36px;
       }
+
+      .quote-total h2 {
+        font-size: 38px;
+      }
     }
   </style>
 </head>
 
+
 <body>
 
 <header>
-  <div class="logo">InstantQuote</div>
-  <div class="beta">● Free Beta</div>
+
+  <div class="logo">
+    InstantQuote
+  </div>
+
+  <div class="beta">
+    ● Free Beta
+  </div>
+
 </header>
 
 
-<!-- ================= CALCULATOR ================= -->
+<!-- CALCULATOR -->
 
 <div id="calculatorView" class="calculator-view">
 
   <section class="hero">
-    <h1>Create professional cleaning quotes <span>in minutes.</span></h1>
-    <p>Give customers accurate pricing without visiting the property.</p>
+
+    <h1>
+      Create professional cleaning quotes
+      <span>in minutes.</span>
+    </h1>
+
+    <p>
+      Give customers accurate pricing without visiting the property.
+    </p>
+
   </section>
 
 
@@ -341,28 +351,50 @@
     <div class="form-card">
 
       <div class="form-group">
-        <label for="customer">Customer Name</label>
+
+        <label for="customer">
+          Customer Name
+        </label>
+
         <input
           type="text"
           id="customer"
           placeholder="Enter customer name"
         >
+
       </div>
 
 
       <div class="form-group">
-        <label for="property">Property Type</label>
+
+        <label for="property">
+          Property Type
+        </label>
 
         <select id="property">
-          <option value="House">House</option>
-          <option value="Apartment">Apartment</option>
-          <option value="Office">Office</option>
+
+          <option value="House">
+            House
+          </option>
+
+          <option value="Apartment">
+            Apartment
+          </option>
+
+          <option value="Office">
+            Office
+          </option>
+
         </select>
+
       </div>
 
 
       <div class="form-group">
-        <label for="bedrooms">Bedrooms</label>
+
+        <label for="bedrooms">
+          Bedrooms
+        </label>
 
         <input
           type="number"
@@ -370,11 +402,15 @@
           value="3"
           min="0"
         >
+
       </div>
 
 
       <div class="form-group">
-        <label for="bathrooms">Bathrooms</label>
+
+        <label for="bathrooms">
+          Bathrooms
+        </label>
 
         <input
           type="number"
@@ -382,64 +418,97 @@
           value="2"
           min="0"
         >
+
       </div>
 
 
       <div class="form-group">
-        <label for="cleaning">Cleaning Service</label>
+
+        <label for="cleaning">
+          Cleaning Service
+        </label>
 
         <select id="cleaning">
-          <option value="standard">Standard Cleaning — $50</option>
-          <option value="deep">Deep Cleaning — $100</option>
-          <option value="move">Move-In / Move-Out — $125</option>
+
+          <option value="standard">
+            Standard Cleaning — $50
+          </option>
+
+          <option value="deep">
+            Deep Cleaning — $100
+          </option>
+
+          <option value="move">
+            Move-In / Move-Out — $125
+          </option>
+
         </select>
+
       </div>
 
 
       <div class="form-group">
 
-        <label>Add-ons</label>
+        <label>
+          Add-ons
+        </label>
+
 
         <div class="addons">
 
           <label class="addon">
+
             <input
               type="checkbox"
               class="addon-check"
               data-price="25"
               data-name="Oven Cleaning"
             >
+
             Oven Cleaning — $25
+
           </label>
 
+
           <label class="addon">
+
             <input
               type="checkbox"
               class="addon-check"
               data-price="25"
               data-name="Fridge Cleaning"
             >
+
             Fridge Cleaning — $25
+
           </label>
 
+
           <label class="addon">
+
             <input
               type="checkbox"
               class="addon-check"
               data-price="35"
               data-name="Interior Windows"
             >
+
             Interior Windows — $35
+
           </label>
 
+
           <label class="addon">
+
             <input
               type="checkbox"
               class="addon-check"
               data-price="30"
               data-name="Cabinet Cleaning"
             >
+
             Cabinet Cleaning — $30
+
           </label>
 
         </div>
@@ -457,11 +526,17 @@
     </div>
 
 
-    <div id="result" class="result">
+    <div
+      id="result"
+      class="result"
+    >
 
       <div class="price-card">
 
-        <h2>Quote Estimate</h2>
+        <h2>
+          Quote Estimate
+        </h2>
+
 
         <div
           id="price"
@@ -474,23 +549,54 @@
         <div class="breakdown">
 
           <div class="breakdown-row">
-            <span>Base service</span>
-            <span id="basePrice">$0</span>
+
+            <span>
+              Base service
+            </span>
+
+            <span id="basePrice">
+              $0
+            </span>
+
           </div>
 
-          <div class="breakdown-row">
-            <span>Bedrooms</span>
-            <span id="bedroomPrice">$0</span>
-          </div>
 
           <div class="breakdown-row">
-            <span>Bathrooms</span>
-            <span id="bathroomPrice">$0</span>
+
+            <span>
+              Bedrooms
+            </span>
+
+            <span id="bedroomPrice">
+              $0
+            </span>
+
           </div>
 
+
           <div class="breakdown-row">
-            <span>Add-ons</span>
-            <span id="addonPrice">$0</span>
+
+            <span>
+              Bathrooms
+            </span>
+
+            <span id="bathroomPrice">
+              $0
+            </span>
+
+          </div>
+
+
+          <div class="breakdown-row">
+
+            <span>
+              Add-ons
+            </span>
+
+            <span id="addonPrice">
+              $0
+            </span>
+
           </div>
 
         </div>
@@ -521,18 +627,41 @@
   <section class="features">
 
     <div class="feature">
-      <strong>⚡ Fast quoting</strong>
-      <p>Create estimates in seconds.</p>
+
+      <strong>
+        ⚡ Fast quoting
+      </strong>
+
+      <p>
+        Create estimates in seconds.
+      </p>
+
     </div>
 
-    <div class="feature">
-      <strong>💼 Professional</strong>
-      <p>Give customers a clean professional quote.</p>
-    </div>
 
     <div class="feature">
-      <strong>📱 Works on mobile</strong>
-      <p>Quote customers from anywhere.</p>
+
+      <strong>
+        💼 Professional
+      </strong>
+
+      <p>
+        Give customers a clean professional quote.
+      </p>
+
+    </div>
+
+
+    <div class="feature">
+
+      <strong>
+        📱 Works on mobile
+      </strong>
+
+      <p>
+        Quote customers from anywhere.
+      </p>
+
     </div>
 
   </section>
@@ -540,15 +669,19 @@
 </div>
 
 
-<!-- ================= CUSTOMER QUOTE ================= -->
+<!-- CUSTOMER QUOTE SCREEN -->
 
 <section id="quoteScreen">
 
   <div class="quote-header">
 
-    <h1>Your Cleaning Quote</h1>
+    <h1>
+      Your Cleaning Quote
+    </h1>
 
-    <p>Please review the details below.</p>
+    <p>
+      Please review the details below.
+    </p>
 
   </div>
 
@@ -563,38 +696,86 @@
     <div class="quote-info">
 
       <div class="quote-info-row">
-        <span>Customer</span>
-        <strong id="quoteCustomer"></strong>
+
+        <span>
+          Customer
+        </span>
+
+        <strong id="quoteCustomer">
+        </strong>
+
       </div>
 
-      <div class="quote-info-row">
-        <span>Property</span>
-        <strong id="quoteProperty"></strong>
-      </div>
 
       <div class="quote-info-row">
-        <span>Bedrooms</span>
-        <strong id="quoteBedrooms"></strong>
+
+        <span>
+          Property
+        </span>
+
+        <strong id="quoteProperty">
+        </strong>
+
       </div>
 
-      <div class="quote-info-row">
-        <span>Bathrooms</span>
-        <strong id="quoteBathrooms"></strong>
-      </div>
 
       <div class="quote-info-row">
-        <span>Cleaning service</span>
-        <strong id="quoteCleaning"></strong>
+
+        <span>
+          Bedrooms
+        </span>
+
+        <strong id="quoteBedrooms">
+        </strong>
+
       </div>
 
-      <div class="quote-info-row">
-        <span>Add-ons</span>
-        <strong id="quoteAddons"></strong>
-      </div>
 
       <div class="quote-info-row">
-        <span>Quote date</span>
-        <strong id="quoteDate"></strong>
+
+        <span>
+          Bathrooms
+        </span>
+
+        <strong id="quoteBathrooms">
+        </strong>
+
+      </div>
+
+
+      <div class="quote-info-row">
+
+        <span>
+          Cleaning service
+        </span>
+
+        <strong id="quoteCleaning">
+        </strong>
+
+      </div>
+
+
+      <div class="quote-info-row">
+
+        <span>
+          Add-ons
+        </span>
+
+        <strong id="quoteAddons">
+        </strong>
+
+      </div>
+
+
+      <div class="quote-info-row">
+
+        <span>
+          Quote date
+        </span>
+
+        <strong id="quoteDate">
+        </strong>
+
       </div>
 
     </div>
@@ -602,9 +783,13 @@
 
     <div class="quote-total">
 
-      <small>Total Quote</small>
+      <small>
+        Total Quote
+      </small>
 
-      <h2 id="quoteTotal">$0</h2>
+      <h2 id="quoteTotal">
+        $0
+      </h2>
 
     </div>
 
@@ -637,9 +822,15 @@
       id="acceptedMessage"
       class="accepted"
     >
+
       ✓ Quote accepted successfully!
+
       <br>
-      <small>Thank you. The cleaning business has received your approval.</small>
+
+      <small>
+        Thank you. The cleaning business has received your approval.
+      </small>
+
     </div>
 
   </div>
@@ -648,7 +839,10 @@
 
 
 <footer>
-  © 2026 InstantQuote. Professional cleaning quotes made simple.
+
+  © 2026 InstantQuote.
+  Professional cleaning quotes made simple.
+
 </footer>
 
 
@@ -662,14 +856,22 @@
     const customer =
       document.getElementById("customer").value.trim();
 
+
     const property =
       document.getElementById("property").value;
 
+
     const bedrooms =
-      Number(document.getElementById("bedrooms").value) || 0;
+      Number(
+        document.getElementById("bedrooms").value
+      ) || 0;
+
 
     const bathrooms =
-      Number(document.getElementById("bathrooms").value) || 0;
+      Number(
+        document.getElementById("bathrooms").value
+      ) || 0;
+
 
     const cleaning =
       document.getElementById("cleaning").value;
@@ -677,13 +879,16 @@
 
     let basePrice = 50;
 
-    let cleaningName = "Standard Cleaning";
+    let cleaningName =
+      "Standard Cleaning";
 
 
     if (cleaning === "deep") {
 
       basePrice = 100;
-      cleaningName = "Deep Cleaning";
+
+      cleaningName =
+        "Deep Cleaning";
 
     }
 
@@ -691,7 +896,9 @@
     if (cleaning === "move") {
 
       basePrice = 125;
-      cleaningName = "Move-In / Move-Out";
+
+      cleaningName =
+        "Move-In / Move-Out";
 
     }
 
@@ -715,6 +922,7 @@
 
         addonTotal +=
           Number(addon.dataset.price);
+
 
         addonNames.push(
           addon.dataset.name
@@ -750,14 +958,6 @@
       "$" + addonTotal;
 
 
-    document.getElementById("resultText").textContent =
-      "Estimated cleaning quote: $" + total;
-
-
-    document.getElementById("result").style.display =
-      "block";
-
-
     currentQuote = {
 
       customer: customer,
@@ -781,6 +981,10 @@
         new Date().toLocaleDateString()
 
     };
+
+
+    document.getElementById("result").style.display =
+      "block";
 
   }
 
@@ -907,7 +1111,9 @@
   async function shareQuote() {
 
     if (!currentQuote) {
+
       return;
+
     }
 
 
@@ -928,17 +1134,17 @@
       currentQuote.total;
 
 
-    if (
-      navigator.share
-    ) {
+    if (navigator.share) {
 
       try {
 
         await navigator.share({
 
-          title: "InstantQuote Cleaning Quote",
+          title:
+            "InstantQuote Cleaning Quote",
 
-          text: shareText
+          text:
+            shareText
 
         });
 

@@ -75,21 +75,18 @@
       margin-top: 10px;
     }
 
-    /* NAVIGATION */
+    .dashboard-btn {
+      background: white;
+      color: #2563eb;
+      border: 1px solid #dbeafe;
+      margin-top: 10px;
+    }
 
     .top-nav {
       max-width: 650px;
       margin: 20px auto 0;
       padding: 0 20px;
     }
-
-    .dashboard-btn {
-      background: white;
-      color: #2563eb;
-      border: 1px solid #dbeafe;
-    }
-
-    /* CALCULATOR */
 
     .hero {
       text-align: center;
@@ -119,8 +116,7 @@
 
     .form-card,
     .price-card,
-    .quote-card,
-    .dashboard-card {
+    .quote-card {
       background: white;
       border-radius: 18px;
       padding: 25px;
@@ -474,7 +470,6 @@
   </style>
 </head>
 
-
 <body>
 
 <header>
@@ -490,7 +485,7 @@
 </header>
 
 
-<!-- CALCULATOR VIEW -->
+<!-- CALCULATOR -->
 
 <div id="calculatorView">
 
@@ -505,7 +500,6 @@
 
   </div>
 
-
   <section class="hero">
 
     <h1>
@@ -518,7 +512,6 @@
     </p>
 
   </section>
-
 
   <main class="main">
 
@@ -547,17 +540,9 @@
 
         <select id="property">
 
-          <option value="House">
-            House
-          </option>
-
-          <option value="Apartment">
-            Apartment
-          </option>
-
-          <option value="Office">
-            Office
-          </option>
+          <option value="House">House</option>
+          <option value="Apartment">Apartment</option>
+          <option value="Office">Office</option>
 
         </select>
 
@@ -627,62 +612,49 @@
           Add-ons
         </label>
 
-
         <div class="addons">
 
           <label class="addon">
-
             <input
               type="checkbox"
               class="addon-check"
               data-price="25"
               data-name="Oven Cleaning"
             >
-
             Oven Cleaning — $25
-
           </label>
 
 
           <label class="addon">
-
             <input
               type="checkbox"
               class="addon-check"
               data-price="25"
               data-name="Fridge Cleaning"
             >
-
             Fridge Cleaning — $25
-
           </label>
 
 
           <label class="addon">
-
             <input
               type="checkbox"
               class="addon-check"
               data-price="35"
               data-name="Interior Windows"
             >
-
             Interior Windows — $35
-
           </label>
 
 
           <label class="addon">
-
             <input
               type="checkbox"
               class="addon-check"
               data-price="30"
               data-name="Cabinet Cleaning"
             >
-
             Cabinet Cleaning — $30
-
           </label>
 
         </div>
@@ -711,14 +683,12 @@
           Quote Estimate
         </h2>
 
-
         <div
           id="price"
           class="price"
         >
           $0
         </div>
-
 
         <div class="breakdown">
 
@@ -770,35 +740,18 @@
   <section class="features">
 
     <div class="feature">
-
       <strong>⚡ Fast quoting</strong>
-
-      <p>
-        Create estimates in seconds.
-      </p>
-
+      <p>Create estimates in seconds.</p>
     </div>
 
-
     <div class="feature">
-
       <strong>💼 Professional</strong>
-
-      <p>
-        Give customers a clean professional quote.
-      </p>
-
+      <p>Give customers a clean professional quote.</p>
     </div>
 
-
     <div class="feature">
-
       <strong>📱 Works on mobile</strong>
-
-      <p>
-        Quote customers from anywhere.
-      </p>
-
+      <p>Quote customers from anywhere.</p>
     </div>
 
   </section>
@@ -806,7 +759,7 @@
 </div>
 
 
-<!-- CUSTOMER QUOTE SCREEN -->
+<!-- CUSTOMER QUOTE -->
 
 <section id="quoteScreen">
 
@@ -904,6 +857,16 @@
       onclick="backToCalculator()"
     >
       ← Back to Calculator
+    </button>
+
+
+    <!-- NEW DASHBOARD BUTTON -->
+
+    <button
+      class="dashboard-btn"
+      onclick="showDashboard()"
+    >
+      📊 View Dashboard
     </button>
 
 
@@ -1030,8 +993,7 @@
   <div
     id="quoteList"
     class="quote-list"
-  >
-  </div>
+  ></div>
 
 </section>
 
@@ -1052,28 +1014,17 @@
   function getSavedQuotes() {
 
     const saved =
-      localStorage.getItem(
-        "instantQuoteQuotes"
-      );
-
+      localStorage.getItem("instantQuoteQuotes");
 
     if (!saved) {
-
       return [];
-
     }
-
 
     try {
-
       return JSON.parse(saved);
-
     } catch (error) {
-
       return [];
-
     }
-
   }
 
 
@@ -1092,39 +1043,31 @@
     const customer =
       document.getElementById("customer").value.trim();
 
-
     const property =
       document.getElementById("property").value;
-
 
     const bedrooms =
       Number(
         document.getElementById("bedrooms").value
       ) || 0;
 
-
     const bathrooms =
       Number(
         document.getElementById("bathrooms").value
       ) || 0;
-
 
     const cleaning =
       document.getElementById("cleaning").value;
 
 
     let basePrice = 50;
-
-    let cleaningName =
-      "Standard Cleaning";
+    let cleaningName = "Standard Cleaning";
 
 
     if (cleaning === "deep") {
 
       basePrice = 100;
-
-      cleaningName =
-        "Deep Cleaning";
+      cleaningName = "Deep Cleaning";
 
     }
 
@@ -1132,9 +1075,7 @@
     if (cleaning === "move") {
 
       basePrice = 125;
-
-      cleaningName =
-        "Move-In / Move-Out";
+      cleaningName = "Move-In / Move-Out";
 
     }
 
@@ -1142,13 +1083,11 @@
     const bedroomTotal =
       bedrooms * 25;
 
-
     const bathroomTotal =
       bathrooms * 30;
 
 
     let addonTotal = 0;
-
     let addonNames = [];
 
 
@@ -1158,7 +1097,6 @@
 
         addonTotal +=
           Number(addon.dataset.price);
-
 
         addonNames.push(
           addon.dataset.name
@@ -1177,18 +1115,14 @@
     document.getElementById("price").textContent =
       "$" + total;
 
-
     document.getElementById("basePrice").textContent =
       "$" + basePrice;
-
 
     document.getElementById("bedroomPrice").textContent =
       "$" + bedroomTotal;
 
-
     document.getElementById("bathroomPrice").textContent =
       "$" + bathroomTotal;
-
 
     document.getElementById("addonPrice").textContent =
       "$" + addonTotal;
@@ -1196,37 +1130,29 @@
 
     currentQuote = {
 
-      id:
-        Date.now(),
+      id: Date.now(),
 
-      customer:
-        customer,
+      customer: customer,
 
-      property:
-        property,
+      property: property,
 
-      bedrooms:
-        bedrooms,
+      bedrooms: bedrooms,
 
-      bathrooms:
-        bathrooms,
+      bathrooms: bathrooms,
 
-      cleaning:
-        cleaningName,
+      cleaning: cleaningName,
 
       addons:
         addonNames.length > 0
           ? addonNames.join(", ")
           : "None",
 
-      total:
-        total,
+      total: total,
 
       date:
         new Date().toLocaleDateString(),
 
-      status:
-        "pending"
+      status: "pending"
 
     };
 
@@ -1293,30 +1219,23 @@
     document.getElementById("quoteCustomer").textContent =
       currentQuote.customer;
 
-
     document.getElementById("quoteProperty").textContent =
       currentQuote.property;
-
 
     document.getElementById("quoteBedrooms").textContent =
       currentQuote.bedrooms;
 
-
     document.getElementById("quoteBathrooms").textContent =
       currentQuote.bathrooms;
-
 
     document.getElementById("quoteCleaning").textContent =
       currentQuote.cleaning;
 
-
     document.getElementById("quoteAddons").textContent =
       currentQuote.addons;
 
-
     document.getElementById("quoteDate").textContent =
       currentQuote.date;
-
 
     document.getElementById("quoteTotal").textContent =
       "$" + currentQuote.total;
@@ -1329,10 +1248,8 @@
     document.getElementById("calculatorView").style.display =
       "none";
 
-
     document.getElementById("dashboardScreen").style.display =
       "none";
-
 
     document.getElementById("quoteScreen").style.display =
       "block";
@@ -1396,9 +1313,7 @@
   async function shareQuote() {
 
     if (!currentQuote) {
-
       return;
-
     }
 
 
@@ -1471,10 +1386,8 @@
     document.getElementById("calculatorView").style.display =
       "none";
 
-
     document.getElementById("quoteScreen").style.display =
       "none";
-
 
     document.getElementById("dashboardScreen").style.display =
       "block";
@@ -1532,14 +1445,11 @@
     document.getElementById("totalQuotes").textContent =
       totalQuotes;
 
-
     document.getElementById("pendingQuotes").textContent =
       pending;
 
-
     document.getElementById("acceptedQuotes").textContent =
       accepted;
-
 
     document.getElementById("totalValue").textContent =
       "$" + totalValue;
@@ -1676,6 +1586,8 @@
     document.getElementById("quoteScreen").style.display =
       "none";
 
+    document.getElementById("dashboardScreen").style.display =
+      "none";
 
     document.getElementById("calculatorView").style.display =
       "block";
@@ -1691,6 +1603,8 @@
     document.getElementById("dashboardScreen").style.display =
       "none";
 
+    document.getElementById("quoteScreen").style.display =
+      "none";
 
     document.getElementById("calculatorView").style.display =
       "block";
@@ -1706,18 +1620,14 @@
     document.getElementById("customer").value =
       "";
 
-
     document.getElementById("bedrooms").value =
       "3";
-
 
     document.getElementById("bathrooms").value =
       "2";
 
-
     document.getElementById("property").value =
       "House";
-
 
     document.getElementById("cleaning").value =
       "standard";
@@ -1735,18 +1645,14 @@
     document.getElementById("price").textContent =
       "$0";
 
-
     document.getElementById("basePrice").textContent =
       "$0";
-
 
     document.getElementById("bedroomPrice").textContent =
       "$0";
 
-
     document.getElementById("bathroomPrice").textContent =
       "$0";
-
 
     document.getElementById("addonPrice").textContent =
       "$0";
